@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background: #717eec;
+    font-family: 'Quicksand', sans-serif;
+}
+button{
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+.music-container{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.music-content{
+    position: relative;
+    width: 245px;
+    height: 450px;
+    background: #000;
+    border-width: 8px 4px !important;
+    border: solid;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.52);
+}
+#bg-image img{
+    width: 105%;
+    height: 105%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    filter: blur(6px);
+    z-index: 1;
+    -webkit-filter: blur(5px);
+}
+#blackLayer{
+    width: 100%;
+    height: 450px;
+    background: rgba(0,0,0,0.404);
+    position: absolute;
+    z-index: 2;
+}
+#menu{
+    position: relative;
+    z-index: 3;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#menu img{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+#volume-container{
+    position: relative;
+    width: 100%;
+    height: 15px;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#volume-container img{
+    width: 15px;
+    height: 15px;
+    margin: 0 5px;
+}
+.slider{
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background: #fff;
+    border-radius: 10px;
+    -webkit-appearance: none;
+    outline: none;
+    z-index: 100;
+}
+.slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #e62c2f;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    transform: scale(1);
+}
+.slider:active::-webkit-slider-thumb{
+    transform: scale(1.2);
+}
+#music-image{
+    position: relative;
+    width: 100%;
+    height: 215px;
+    z-index: 3;
+}
+#circle-image{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -33%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    overflow: hidden;
+    border-radius: 50%;
+    border: 5px solid #e2e2e2;
+}
+#circle-image img{
+    width: 100%;
+    height: 100%;
+    animation: circle 2.5s infinite linear;
+    animation-play-state: paused;
+}
+
+@keyframes circle{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+#music-title{
+    position: relative;
+    padding: 0 25px;
+    top: 65%;
+    color: #fff;
+}
+#music-title h5{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+    margin: 20px 0 5px;
+}
+#music-title h6{
+    font-size: 12.5px;
+    margin: 0;
+    font-weight: 500;
+    text-align: center;
+}
+#music-menu{
+    width: 90%;
+    height: 40px;
+    z-index: 3;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+}
+#music-menu img{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+#currentTime{
+    position: relative;
+    z-index: 3;
+    padding: 0 12px 5px;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+#currentTime span{
+    font-size: 12px;
+}
+.seekslider{
+    width: 100px;
+    height: 2px;
+    position: fixed;
+    background: #fff;
+    -webkit-appearance: none;
+    z-index: 3;
+    margin-left: 70px;
+    outline: none;
+}
+.seekslider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #e62c2f;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    transform: scale(1);
+}
+.seekslider:active::-webkit-slider-thumb{
+    transform: scale(1.2);
+}
+#buttons{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    z-index: 3;
+    margin-top: 20px;
+}
+#buttons div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.play{
+    width: 60px;
+    height: 50px;
+    margin: 0 5px;
+}
+.play img{
+    width: 100%;
+    height: 100%;
+}
+.pre img,
+.next img{
+    width: 20px;
+    height: 20px;
+}
+#buttons .like{
+    position: absolute;
+    right: 8%;
+    top: 25%;
+    cursor: pointer;
+}
+#buttons .like i{
+    color: rgba(255,255,255,0.85);
+}
+#buttons .repeat{
+    position: absolute;
+    left: 6%;
+    top: 30%;
+    cursor: pointer;
+}
+.repeat img{
+    width: 16px;
+    height: 16px;
+}

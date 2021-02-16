@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+   <link rel="shortcut icon" href="Images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <title>Music - App</title>
+</head>
+<body>
+    <div class="music-container">
+        <div class="music-content">
+            <div id="bg-image">
+                <div id="blackLayer"></div>
+                <img src="Images/ncs7.jpg" alt="" id="bgImage">
+            </div>
+            <div id="menu">
+                <img src="Images/menu.png" alt="">
+                <img src="Images/search.png" alt="">
+            </div>
+            <div id="volume-container">
+                <img src="Images/volume-low.png" alt="" id="volume-down">
+                <input type="range" min="0" max="100" step="1" value="100" id="volumeSilder" class="slider">
+                <img src="Images/volumn-high.png" alt="" id="volume-up">
+            </div>
+            <div id="music-image">
+                <div id="circle-image">
+                    <img src="Images/ncs7.jpg" alt="" id="image">
+                </div>
+                <div id="music-title">
+                    <h5 id="playlist-status"></h5>
+                    <h6 id="playlist-artist"></h6>
+                </div>
+            </div>
+            <div id="music-menu">
+                <button id="random"><img src="Images/random.png" alt=""></button>
+                <button id="mutebtn"><img src="Images/speaker.png" id="muteImage" alt=""></button>
+            </div>
+            <div id="currentTime">
+                <span id="curTimeText">00:00</span>
+                <span id="durTimeText">00:00</span>
+            </div>
+            <input type="range" id="seekslider" class="seekslider" min="0" max="100" step="1" value="0">
+            <div id="buttons">
+                <button class="repeat" id="repeat">
+                    <img src="Images/rep.png" id="loopImage" alt="">
+                </button>
+                <div>
+                    <button id="prebtn" class="pre"><img src="Images/backward.png" alt=""></button>
+                    <button id="playpausebtn" class="play"><img src="Images/play-red.png" id="playImage" alt=""></button>
+                    <button id="nextbtn" class="next"><img src="Images/forward.png" alt=""></button>
+                </div>
+                <span class="like">
+                    <i class="far fa-heart"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
