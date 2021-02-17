@@ -1,7 +1,10 @@
 //Define variable
-let audio,playbtn,title,poster,artist,mutebtn,seekslider,volumeslider,seeking=false,seekTo,curTimeText,durTimeText,playlistStatus,dir,playlist,ext,agent,playlistArtist,repeat,randomSong,prevbtn,nextbtn,playImage,image,bgImage,muteImage,loopImage
 
-dir = 'music/'
+window.addEventListener('load',()=>{
+
+let ad,playbtn,title,poster,artist,mutebtn,seekslider,volumeslider,seeking=false,seekTo,curTimeText,durTimeText,playlistStatus,dir,playlist,ext,agent,playlistArtist,repeat,randomSong,prevbtn,nextbtn,playImage,image,bgImage,muteImage,loopImage
+
+dir = 'Music/'
 
 playlist = ["AlanWalker Faded NCS-38","Broken Angel-42","Cartoon-On-_-On","Elektronomia","Fearless","Johnning","let_me_love_you-32","tujhe_kitna_chahne-153","Popsicle","senorita-142","tu hi toh jannat-417","tum_hi_aana_neha_k-159"]
 title = ["AlanWalker Faded NCS-38","Broken Angel-42","Cartoon - On & On","Elektronomia","Lost-sky Fearless","Janji-Heroes Tonight","let_me_love_you-32","tujhe_kitna_chahne-153","Popsicle","senorita-142","tu hi toh jannat-417","tum_hi_aana_neha_k-159"]
@@ -11,6 +14,14 @@ artist = ["(feat. Daniel Levi) [NCS Release]","NO NAME","Elektronomia-Sky High [
 poster = ["Images/ncs7.jpg","Images/ncs8.jpg","Images/ncs9.jpg","Images/ncs10.jpg","Images/ncs11.jpg","Images/ncs1.jpeg","Images/ncs2.jpg","Images/ncs3.jpg","Images/ncs4.jpg","Images/ncs5.jpg","Images/ncs6.jpg","Images/ncs12.jpg"]
 
 ext = ".mp3"
+agent = navigator.userAgent.toLowerCase()
+if(agent.indexOf('firefox')!=-1 || agent.indexOf('opera')!=-1){
+    ext = ".ogg"
+}
+
+audio = document.getElementById('audio')
+audio.innerHTML = `<audio src="${dir+playlist[0]+ext}" preload="auto" crossOrigin="anonymous" id="adio"></audio>`
+let adb = document.getElementById('adio');
 
 playlist_index = 0;
 
@@ -32,14 +43,23 @@ playlistArtist = document.getElementById('playlist-artist')
 repeat = document.getElementById('repeat')
 randomSong = document.getElementById('random')
 
-audio = new Audio();
-audio.src = dir+playlist[0]+ext;
-audio.loop = false;
+// adb.src = dir+playlist[0]+ext;b
+adb.loop = false;
 
 playlistStatus.innerHTML = title[playlist_index];
 playlistArtist.innerHTML = artist[playlist_index];
 
-playbtn.addEventListener('click',playPause)
+playbtn.addEventListener('click',(e)=>{
+    if(adb.paused){
+        adb.play();
+        image.style.animationPlayState = "running"
+        playImage.setAttribute("src","Images/pause-red.png")
+    }else{
+        adb.pause();
+        image.style.animationPlayState = "paused"
+        playImage.setAttribute("src","Images/play-red.png")
+    }
+})
 prevbtn.addEventListener('click',prevSong)
 nextbtn.addEventListener('click',nextSong)
 mutebtn.addEventListener('click',mute)
@@ -62,8 +82,8 @@ seekslider.addEventListener('mouseup',()=>{
 volumeslider.addEventListener('mousemove',volume)
 volumeslider.addEventListener('touchmove',volume)
 volumeslider.addEventListener('mousedown',volume)
-audio.addEventListener('timeupdate',()=>{seekTimeUpdate()})
-audio.addEventListener('ended',()=>{switchTrack()})
+adb.addEventListener('timeupdate',()=>{seekTimeUpdate()})
+adb.addEventListener('ended',()=>{switchTrack()})
 repeat.addEventListener('click',loop)
 randomSong.addEventListener('click',random)
 
@@ -75,17 +95,17 @@ function fetchMusicDetails(){
     playlistStatus.innerHTML = title[playlist_index];
     playlistArtist.innerHTML = artist[playlist_index];
 
-    audio.src = dir+playlist[playlist_index]+ext;
-    audio.play()
+    adb.src = dir+playlist[playlist_index]+ext;
+    adb.play()
 }
 
 function playPause(){
-    if(audio.paused){
-        audio.play();
+    if(ad.paused){
+        ad.play();
         image.style.animationPlayState = "running"
         playImage.setAttribute("src","Images/pause-red.png")
     }else{
-        audio.pause();
+        ad.pause();
         image.style.animationPlayState = "paused"
         playImage.setAttribute("src","Images/play-red.png")
     }
@@ -108,50 +128,48 @@ function nextSong(){
 }
 
 function mute(){
-    if(audio.muted){
-        audio.muted = false;
+    if(adb.muted){
+        adb.muted = false;
         muteImage.setAttribute("src","Images/speaker.png")
     }else{
-        audio.muted = true;
+        adb.muted = true;
         muteImage.setAttribute("src","Images/mute.png")
     }
 }
 
 function seek(e){
-    if(audio.duration==0){
+    if(adb.duration==0){
         null
     }else{
         if(seeking){
            seekslider.value = e.clientX - seekslider.offsetLeft
-           seekTo = audio.duration * (seekslider.value/100)
-           audio.currentTime = seekTo
+           seekTo = ad.duration * (seekslider.value/100)
+           ad.currentTime = seekTo
         }
     }
 }
 
 function peek(e){
-    if(audio.duration==0){
+    if(adb.duration==0){
         null
     }else{
-        // if(seeking){
-           seekslider.value = e.touches[0].clientX - seekslider.offsetLeft
-           seekTo = audio.duration * (seekslider.value/100)
-           audio.currentTime = seekTo
-        // }
+        seekslider.value = e.touches[0].clientX - seekslider.offsetLeft
+        seekTo = adb.duration * (seekslider.value/100)
+        adb.currentTime = seekTo
     }
 }
 
 function volume(){
-    audio.volume = volumeslider.value/100;
+    adb.volume = volumeslider.value/100;
 }
 
 function seekTimeUpdate(){
-    if(audio.duration){
-        seekslider.value = audio.currentTime/audio.duration*100;
-        let curMin = Math.floor(audio.currentTime/60);
-        let curSec = Math.floor(audio.currentTime-curMin*60);
-        let durMin = Math.floor(audio.duration/60);
-        let durSec = Math.floor(audio.duration - durMin*60);
+    if(adb.duration){
+        seekslider.value = adb.currentTime/adb.duration*100;
+        let curMin = Math.floor(adb.currentTime/60);
+        let curSec = Math.floor(adb.currentTime-curMin*60);
+        let durMin = Math.floor(adb.duration/60);
+        let durSec = Math.floor(adb.duration - durMin*60);
         curMin<10?curMin="0"+curMin:curMin;
         curSec<10?curSec="0"+curSec:curSec;
         durMin<10?durMin="0"+durMin:durMin;
@@ -174,17 +192,22 @@ function switchTrack(){
 }
 
 function loop(){
-    if(audio.loop){
-        audio.loop = false;
+    if(adb.loop){
+        adb.loop = false;
         loopImage.setAttribute("src","Images/rep.png");
     }else{
-        audio.loop = true;
+        adb.loop = true;
         loopImage.setAttribute("src","Images/rep1.png")
     }
 }
 
 function random(){
     let r = Math.floor(Math.random()*(playlist.length))
+    while(playlist_index===r){
+        r = Math.floor(Math.random()*(playlist.length))
+    }
     playlist_index = r;
     fetchMusicDetails()
 }
+
+})
