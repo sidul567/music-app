@@ -142,13 +142,12 @@ function seek(e){
         null
     }else{
         if(seeking){
-           seekslider.value = e.clientX - seekslider.offsetLeft
-           seekTo = ad.duration * (seekslider.value/100)
-           ad.currentTime = seekTo
+           seekslider.value = e.clientX - seekslider.offsetLeft)
+           seekTo = adb.duration * (seekslider.value/100)
+           adb.currentTime = seekTo
         }
     }
 }
-
 function peek(e){
     if(adb.duration==0){
         null
