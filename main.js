@@ -2,6 +2,8 @@
 
 window.addEventListener('load',()=>{
 
+    
+
 let ad,playbtn,title,poster,artist,mutebtn,seekslider,volumeslider,seeking=false,seekTo,curTimeText,durTimeText,playlistStatus,dir,playlist,ext,agent,playlistArtist,repeat,randomSong,prevbtn,nextbtn,playImage,image,bgImage,muteImage,loopImage
 
 dir = 'Music/'
@@ -18,6 +20,7 @@ agent = navigator.userAgent.toLowerCase()
 if(agent.indexOf('firefox')!=-1 || agent.indexOf('opera')!=-1){
     ext = ".ogg"
 }
+
 
 audio = document.getElementById('audio')
 audio.innerHTML = `<audio src="${dir+playlist[0]+ext}" preload="auto" crossOrigin="anonymous" id="adio"></audio>`
@@ -42,8 +45,22 @@ playlistStatus = document.getElementById('playlist-status')
 playlistArtist = document.getElementById('playlist-artist')
 repeat = document.getElementById('repeat')
 randomSong = document.getElementById('random')
+let music_playlist = document.getElementById('music_playlist')
+let musicList = document.getElementById('musicList')
+let volume_up = document.getElementById('volume-up')
+let volume_down = document.getElementById('volume-down')
 
-// adb.src = dir+playlist[0]+ext;b
+
+for(let i=0;i<playlist.length;i++){
+    musicList.innerHTML += `<div class="p_song" name="pSong" data-title="${i}">
+    <p id="p_title" data-title="${i}">${playlist[i]}</p>
+    <p id="p_artist" data-title="${i}">${artist[i]}</p>
+    <button data-title="${i}"><i data-title="${i}" class="far fa-play-circle"></i></button>
+</div>`
+}
+
+let pSong = document.getElementsByName('pSong')
+
 adb.loop = false;
 
 playlistStatus.innerHTML = title[playlist_index];
@@ -98,18 +115,73 @@ function fetchMusicDetails(){
     adb.src = dir+playlist[playlist_index]+ext;
     adb.play()
 }
+let isClose = true;
+music_playlist.addEventListener('click',()=>{
 
-function playPause(){
-    if(ad.paused){
-        ad.play();
-        image.style.animationPlayState = "running"
-        playImage.setAttribute("src","Images/pause-red.png")
+    if(isClose){
+        musicList.style.height = '90%'
+        isClose = false;
     }else{
-        ad.pause();
-        image.style.animationPlayState = "paused"
-        playImage.setAttribute("src","Images/play-red.png")
+        musicList.style.height = '0'
+        isClose = true;
+    }  
+})
+
+//music list create
+
+document.getElementById('body').addEventListener('keydown',e=>{
+    if(e.which==32){
+        if(adb.paused){
+            adb.play();
+            image.style.animationPlayState = "running"
+            playImage.setAttribute("src","Images/pause-red.png")
+        }else{
+            adb.pause();
+            image.style.animationPlayState = "paused"
+            playImage.setAttribute("src","Images/play-red.png")
+        }
     }
+    if(e.which==39){
+        nextSong()
+        image.style.animationPlayState = "running"
+    }
+    if(e.which==37){
+        prevSong()
+        image.style.animationPlayState = "running"
+    }
+})
+
+let temp = 0;
+for(let i=0;i<playlist.length;i++){
+    pSong[i].addEventListener('click',(e)=>{
+        pSong[temp].classList.remove('active_song')
+        playlist_index = e.target.dataset.title
+        fetchMusicDetails()
+        musicList.style.height = '0'
+        isClose = true
+        pSong[i].classList.add('active_song')
+        temp = i;
+        image.style.animationPlayState = "running"
+    })
 }
+
+volume_up.addEventListener('click',()=>{
+    if(adb.volume+0.05<=1){
+        adb.volume += 0.05;
+    }else{
+        adb.volume =1;
+    }
+    volumeslider.value = Math.floor(adb.volume*100)
+})
+
+volume_down.addEventListener('click',()=>{
+    if(adb.volume-0.05<0){
+        adb.volume = 0;
+    }else{
+        adb.volume -=0.05;
+    }
+    volumeslider.value = Math.floor(adb.volume*100)
+})
 
 function prevSong(){
     playlist_index--;
@@ -157,10 +229,13 @@ function peek(e){
         adb.currentTime = seekTo
     }
 }
+adb.volume = volumeslider.value/100;
 
 function volume(){
     adb.volume = volumeslider.value/100;
 }
+
+
 
 function seekTimeUpdate(){
     if(adb.duration){

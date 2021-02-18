@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Music - App</title>
 </head>
-<body>
+<body id="body">
     <div id="audio"></div>
     <div class="music-container">
         <div class="music-content">
@@ -18,12 +18,14 @@
                 <img src="Images/ncs7.jpg" alt="" id="bgImage">
             </div>
             <div id="menu">
-                <img src="Images/menu.png" alt="">
+                <img id="music_playlist" src="Images/menu.png" alt="">
                 <img src="Images/search.png" alt="">
+            </div>
+            <div class="playlist" id="musicList">
             </div>
             <div id="volume-container">
                 <img src="Images/volume-low.png" alt="" id="volume-down">
-                <input type="range" min="0" max="100" step="1" value="100" id="volumeSilder" class="slider">
+                <input type="range" min="0" max="100" step="1" value="20" id="volumeSilder" class="slider">
                 <img src="Images/volumn-high.png" alt="" id="volume-up">
             </div>
             <div id="music-image">

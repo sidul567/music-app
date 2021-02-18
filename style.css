@@ -4,7 +4,7 @@ body{
     padding: 0;
     width: 100%;
     height: 100vh;
-    background: #717eec;
+    background: #ffb399;
     font-family: 'Quicksand', sans-serif;
 }
 button{
@@ -31,6 +31,104 @@ button{
     overflow: hidden;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.52);
 }
+
+.playlist{
+	position: absolute;
+	bottom: 0;
+	z-index: 10;
+	width: 100%;
+	height: 0%;
+	background: #566573;
+	overflow: hidden;
+    overflow-y: scroll;
+	transition: 0.5s;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+    border-radius: 10px;
+}
+
+.playlist::-webkit-scrollbar{
+    display: none;
+}
+
+.playlist .p_song{
+    position: relative;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+    padding: 0 10px;
+    box-shadow: 0.1px 8px 8px 2px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.playlist .p_song:last-child{
+    margin-bottom: 20px;
+}
+.playlist .p_song #p_title{
+	font-size: 20px;
+    color: #fff;
+    padding-bottom: 15px;
+    width: 60%;
+    word-wrap: break-word;
+    padding-bottom: 25px;
+}
+.playlist .p_song #p_artist{
+	position: absolute;
+	bottom: 6px;
+    width: 60%;
+	/* left: 15px; */
+	font-size: 11px;
+    color: #fff;
+}
+.playlist .p_song button{
+	height: 35px;
+	width: 35px;
+	border-radius: 50%;
+	font-size: 18px;
+	border: none;
+	cursor: pointer;
+	transition: 0.5s;
+	margin: 0 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0,0,0,0.08);
+	box-shadow: 0.1px 8px 8px 2px rgba(0,0,0,0.2);
+}
+.playlist .p_song i{
+    color: #e62c2f;
+    transition: 0.5s;
+}
+.playlist .p_song:hover{
+   background: #1C2833;
+   color: #fff;
+}
+.playlist .p_song:hover button{
+	background: #e62c2f;
+}
+.main .active_song{
+	background: #254c70;
+	box-shadow: none;
+}
+.playlist .active_song button{
+	background: linear-gradient(to right, #e62c2f, #e62c2f);
+	box-shadow: 0.1px 8px 8px 2px rgba(0,0,0,0.2) inset,
+	            0.1px 8px 8px 2px rgba(0,0,0,0.2);
+}
+
+.playlist .active_song i{
+    color: #1c2833;
+}
+
+.playlist .p_song:hover i{
+    color: #1c2833;
+}
+
 #bg-image img{
     width: 105%;
     height: 105%;
